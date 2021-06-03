@@ -4,13 +4,7 @@
   import TextInput from "./UI/TextInput.svelte";
   import Button from './UI/Button.svelte';
 
-  let title = "";
-  let subtitle = "";
-  let address = "";
-  let contactEmail = "";
-  let description = "";
-  let imageUrl = "";
-
+  let [title, subtitle, address, contactEmail, description, imageUrl] = ["", "", "", "", "", ""];
   let meetups = [
     {
       id: "m1",
@@ -36,32 +30,11 @@
   ];
 
   function addMeetup() {
-    const newMeetup = {
-      id: Math.random().toString(),
-      title: title,
-      subtitle: subtitle,
-      description: description,
-      imageUrl: imageUrl,
-      contactEmail: contactEmail,
-      address: address
-    };
-
-    // meetups.push(newMeetup); // DOES NOT WORK!
+    const newMeetup = {id: Math.random().toString(), title, subtitle, description, imageUrl, contactEmail, address};
     meetups = [newMeetup, ...meetups];
   }
 </script>
 
-<style>
-  main {
-    margin-top: 5rem;
-  }
-
-  form {
-    width: 30rem;
-    max-width: 90%;
-    margin: auto;
-  }
-</style>
 
 <Header />
 
@@ -107,3 +80,16 @@
   </form>
   <MeetupGrid {meetups} />
 </main>
+
+
+<style>
+  main {
+    margin-top: 5rem;
+  }
+
+  form {
+    width: 30rem;
+    max-width: 90%;
+    margin: auto;
+  }
+</style>

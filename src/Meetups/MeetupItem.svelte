@@ -6,7 +6,7 @@
   export let imageUrl;
   export let description;
   export let address;
-  export let email;
+  export let contactEmail;
 </script>
 
 <style>
@@ -80,7 +80,7 @@
     <p>{description}</p>
   </div>
   <footer>
-    <Button href="mailto:{email}" caption="Contact" />
+    <Button href="mailto:{contactEmail}" caption="Contact" />
     <Button mode="outline" type="button" caption="Favorite" />
     <Button type="button" caption="Show Details" />
   </footer>
