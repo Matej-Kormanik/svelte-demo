@@ -24,14 +24,15 @@
     <p>{description}</p>
   </div>
   <footer>
-    <Button href="mailto:{contactEmail}" caption="Contact" />
+    <Button href="mailto:{contactEmail}">Contact</Button>
 
     <Button mode="outline" type="button"
-            caption={isFavorite ? "Unfavorite":"Favorite"}
             on:click={() => {dispatch('togglefavorite', id)}}
-            color={isFavorite ? null : 'success'}/>
+            color={isFavorite ? null : 'success'}>
+      {isFavorite ? "Unfavorite":"Favorite"}
+    </Button>
 
-    <Button type="button" caption="Show Details" />
+    <Button type="button">Show Details</Button>
   </footer>
 </article>
 
