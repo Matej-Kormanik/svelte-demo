@@ -7,6 +7,35 @@
   const dispatch = createEventDispatcher()
 </script>
 
+<article>
+  <header>
+    <h1>{title}
+      {#if isFavorite}
+      <Badge>FAVORITE</Badge>
+      {/if}
+    </h1>
+    <h2>{subtitle}</h2>
+    <p>{address}</p>
+  </header>
+  <div class="image">
+    <img src={imageUrl} alt={title} />
+  </div>
+  <div class="content">
+    <p>{description}</p>
+  </div>
+  <footer>
+    <Button href="mailto:{contactEmail}" caption="Contact" />
+
+    <Button mode="outline" type="button"
+            caption={isFavorite ? "Unfavorite":"Favorite"}
+            on:click={() => {dispatch('togglefavorite', id)}}
+            color={isFavorite ? null : 'success'}/>
+
+    <Button type="button" caption="Show Details" />
+  </footer>
+</article>
+
+
 <style>
   article {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -64,31 +93,3 @@
     height: 4rem;
   }
 </style>
-
-<article>
-  <header>
-    <h1>{title}
-      {#if isFavorite}
-      <Badge>FAVORITE</Badge>
-      {/if}
-    </h1>
-    <h2>{subtitle}</h2>
-    <p>{address}</p>
-  </header>
-  <div class="image">
-    <img src={imageUrl} alt={title} />
-  </div>
-  <div class="content">
-    <p>{description}</p>
-  </div>
-  <footer>
-    <Button href="mailto:{contactEmail}" caption="Contact" />
-
-    <Button mode="outline" type="button"
-            caption={isFavorite ? "Unfavorite":"Favorite"}
-            on:click={() => {dispatch('togglefavorite', id)}}
-            color={isFavorite ? null : 'success'}/>
-
-    <Button type="button" caption="Show Details" />
-  </footer>
-</article>

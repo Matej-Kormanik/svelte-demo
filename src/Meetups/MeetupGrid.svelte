@@ -4,6 +4,14 @@
   export let meetups;
 </script>
 
+
+<section id="meetups">
+  {#each meetups as meetup}
+    <MeetupItem on:togglefavorite {...meetup} />
+  {/each}
+</section>
+
+
 <style>
   section {
     width: 100%;
@@ -18,9 +26,3 @@
     }
   }
 </style>
-
-<section id="meetups">
-  {#each meetups as meetup}
-    <MeetupItem on:togglefavorite {...meetup} />
-  {/each}
-</section>

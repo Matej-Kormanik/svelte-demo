@@ -47,7 +47,6 @@
     updatedMeetups[index] = meetup;
     meetups = updatedMeetups;
   }
-
 </script>
 
 
