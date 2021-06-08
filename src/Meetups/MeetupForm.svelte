@@ -4,6 +4,7 @@
     import {createEventDispatcher} from "svelte";
     import Modal from "../UI/Modal.svelte";
     import {isEmailValid, isEmpty} from "../helpers/validation";
+    import {meetups} from "./meetup-store";
     const dispatch = createEventDispatcher();
 
     let [title, subtitle, address, contactEmail, description, imageUrl] = ["", "", "", "", "", ""];
@@ -20,7 +21,8 @@
 
     function submitForm() {
         const newMeetup = {id: Math.random().toString(), title, subtitle, description, imageUrl, contactEmail, address};
-        dispatch('save', newMeetup)
+        meetups.addMeetup(newMeetup);
+        dispatch('save')
     }
 </script>
 
