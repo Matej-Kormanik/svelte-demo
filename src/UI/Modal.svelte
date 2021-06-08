@@ -1,9 +1,9 @@
 <script>
     import Button from "./Button.svelte";
     import {createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
 
     export let title;
-    const dispatch = createEventDispatcher();
 
     function close() {
         dispatch('cancel')
@@ -11,6 +11,7 @@
 </script>
 
 <div class="modal-backdrop" on:click={close}></div>
+
 <div class="modal">
     <h1>{title}</h1>
     <div class="content">
