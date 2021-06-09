@@ -45,7 +45,7 @@ const updateMeetup = (id, meetup) => {
 }
 
 const deleteMeetup = id => {
-    meetupStore.update(meetupList => meetupList.filter(m => m.id === id))
+    meetupStore.update(meetupList => meetupList.filter(m => m.id !== id))
 }
 
 const toggleFavorite = id => {

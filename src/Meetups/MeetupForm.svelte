@@ -17,7 +17,8 @@
     $: descriptionValid = !isEmpty(description)
     $: imageUrlValid = !isEmpty(imageUrl)
 
-    $: if (editedMeetupId) {
+    if (editedMeetupId) {
+        console.log(editedMeetupId)
         const unsubscribe = meetups.subscribe(items => {
             const selectedMeetup = items.find(i => i.id === editedMeetupId);
             title = selectedMeetup.title;
@@ -98,8 +99,10 @@
                 on:input={event => (description = event.target.value)}/>
     </form>
     <div slot="footer">
-        <Button type="button" on:click={removeMeetup}>delete</Button>
         <Button type="button" mode="outline" on:click={()=> {dispatch('cancel')}}>cancel</Button>
+        {#if editedMeetupId}
+            <Button type="button" on:click={removeMeetup}>delete</Button>
+        {/if}
         <Button type="button" on:click={submitForm} disabled={!formIsValid}>Save</Button>
     </div>
 </Modal>

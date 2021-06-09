@@ -31,8 +31,10 @@
   }
 
   function startEdit({detail}) {
-      editMode = true;
+      page = 'overview';
+      console.log(detail)
       edittingId = detail;
+      editMode = true;
   }
 </script>
 
@@ -42,9 +44,9 @@
 <main>
     {#if page === 'overview'}
         {#if editMode}
-            <MeetupForm id={edittingId} on:save={() => {editMode = false}} on:cancel={cancelEdit}/>
+            <MeetupForm editedMeetupId={edittingId} on:save={() => {editMode = false}} on:cancel={cancelEdit}/>
         {/if}
-        <MeetupGrid meetups={$meetups} on:showdetails={showDetails} on:edit={startEdit} on:add={editMode = !editMode}/>
+        <MeetupGrid meetups={$meetups} on:showdetails={showDetails} on:edit={startEdit} on:add={() => {editMode = !editMode;}}/>
     {:else}
         <MeetupDetail id={pageData.id} on:close={closeDetails}/>
     {/if}
