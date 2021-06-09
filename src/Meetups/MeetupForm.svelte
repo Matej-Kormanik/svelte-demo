@@ -7,8 +7,7 @@
     import {meetups} from "./meetup-store";
     const dispatch = createEventDispatcher();
 
-    export let id = null;
-    let selectedMeetup;
+    export let editedMeetupId = null;
     let [title, subtitle, address, contactEmail, description, imageUrl] = ["", "", "", "", "", ""];
 
     $: titleValid = !isEmpty(title)
@@ -18,9 +17,9 @@
     $: descriptionValid = !isEmpty(description)
     $: imageUrlValid = !isEmpty(imageUrl)
 
-    if (id) {
+    $: if (editedMeetupId) {
         const unsubscribe = meetups.subscribe(items => {
-            selectedMeetup = items.find(i => i.id === id);
+            const selectedMeetup = items.find(i => i.id === editedMeetupId);
             title = selectedMeetup.title;
             subtitle = selectedMeetup.subtitle;
             address = selectedMeetup.address;
@@ -36,11 +35,16 @@
 
     function submitForm() {
         const newMeetup = {id: Math.random().toString(), title, subtitle, description, imageUrl, contactEmail, address};
-        if (id) {
-            meetups.updateMeetup(id, {title, subtitle, address, contactEmail, description, imageUrl});
+        if (editedMeetupId) {
+            meetups.updateMeetup(editedMeetupId, {title, subtitle, address, contactEmail, description, imageUrl});
         } else {
             meetups.addMeetup(newMeetup);
         }
+        dispatch('save')
+    }
+
+    function removeMeetup() {
+        meetups.deleteMeetup(editedMeetupId);
         dispatch('save')
     }
 </script>
@@ -94,6 +98,7 @@
                 on:input={event => (description = event.target.value)}/>
     </form>
     <div slot="footer">
+        <Button type="button" on:click={removeMeetup}>delete</Button>
         <Button type="button" mode="outline" on:click={()=> {dispatch('cancel')}}>cancel</Button>
         <Button type="button" on:click={submitForm} disabled={!formIsValid}>Save</Button>
     </div>

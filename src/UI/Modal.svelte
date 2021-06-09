@@ -19,7 +19,7 @@
     </div>
     <footer>
         <slot name="footer">
-            <Button on:click={close}>close</Button>
+<!--            <Button on:click={close}>close</Button>-->
         </slot>
     </footer>
 </div>

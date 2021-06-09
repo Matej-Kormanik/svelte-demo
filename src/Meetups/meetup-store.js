@@ -35,7 +35,6 @@ const addMeetup = newMeetup => {
 
 
 const updateMeetup = (id, meetup) => {
-    console.log(meetup);
     meetupStore.update(meetupList => {
         const index = meetupList.findIndex(item => item.id === id);
         const meetupToUpdate = {...meetupList[index], ...meetup}
@@ -43,6 +42,10 @@ const updateMeetup = (id, meetup) => {
         listCopy[index] = meetupToUpdate;
         return listCopy;
     })
+}
+
+const deleteMeetup = id => {
+    meetupStore.update(meetupList => meetupList.filter(m => m.id === id))
 }
 
 const toggleFavorite = id => {
@@ -63,5 +66,6 @@ export const meetups = {
     set: meetupStore.set,
     addMeetup,
     toggleFavorite,
-    updateMeetup
+    updateMeetup,
+    deleteMeetup
 }
