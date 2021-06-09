@@ -1,4 +1,4 @@
-const {writable} = require("svelte/store");
+import {writable} from "svelte/store";
 
 
 const meetupStore = writable([
