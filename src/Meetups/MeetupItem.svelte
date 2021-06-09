@@ -29,7 +29,7 @@
     <p>{description}</p>
   </div>
   <footer>
-    <Button href="mailto:{contactEmail}">Contact</Button>
+    <Button type="button" mode="outline" on:click={() => {dispatch('edit', id)}}>Edit</Button>
 
     <Button mode="outline" type="button"
             on:click={toggleFavorite}

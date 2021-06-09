@@ -9,6 +9,7 @@
   let editMode = false;
   let page = 'overview';
   let pageData = {};
+  let edittingId;
 
   function toggleFavorite(event) {
     meetups.toggleFavorite(event.detail);
@@ -16,6 +17,7 @@
 
   function cancelEdit() {
     editMode = false;
+    edittingId = null;
   }
 
   function showDetails(event) {
@@ -26,6 +28,11 @@
   function closeDetails() {
       page = 'overview';
       pageData = {};
+  }
+
+  function startEdit({detail}) {
+      editMode = true;
+      edittingId = detail;
   }
 </script>
 
@@ -38,9 +45,9 @@
             <Button on:click={() => {editMode = !editMode}}>New meetup</Button>
         </div>
         {#if editMode}
-            <MeetupForm on:save={() => {editMode = false}} on:cancel={cancelEdit}/>
+            <MeetupForm id={edittingId} on:save={() => {editMode = false}} on:cancel={cancelEdit}/>
         {/if}
-        <MeetupGrid meetups={$meetups} on:showdetails={showDetails}/>
+        <MeetupGrid meetups={$meetups} on:showdetails={showDetails} on:edit={startEdit}/>
     {:else}
         <MeetupDetail id={pageData.id} on:close={closeDetails}/>
     {/if}

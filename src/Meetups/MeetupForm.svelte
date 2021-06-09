@@ -7,6 +7,8 @@
     import {meetups} from "./meetup-store";
     const dispatch = createEventDispatcher();
 
+    export let id = null;
+    let selectedMeetup;
     let [title, subtitle, address, contactEmail, description, imageUrl] = ["", "", "", "", "", ""];
 
     $: titleValid = !isEmpty(title)
@@ -16,12 +18,29 @@
     $: descriptionValid = !isEmpty(description)
     $: imageUrlValid = !isEmpty(imageUrl)
 
+    if (id) {
+        const unsubscribe = meetups.subscribe(items => {
+            selectedMeetup = items.find(i => i.id === id);
+            title = selectedMeetup.title;
+            subtitle = selectedMeetup.subtitle;
+            address = selectedMeetup.address;
+            contactEmail = selectedMeetup.contactEmail;
+            description = selectedMeetup.description;
+            imageUrl = selectedMeetup.imageUrl;
+        });
+        unsubscribe();
+    }
+
     let formIsValid = false;
     $: formIsValid = titleValid && subtitleValid && addressValid && contactEmailValid && descriptionValid && imageUrlValid;
 
     function submitForm() {
         const newMeetup = {id: Math.random().toString(), title, subtitle, description, imageUrl, contactEmail, address};
-        meetups.addMeetup(newMeetup);
+        if (id) {
+            meetups.updateMeetup(id, {title, subtitle, address, contactEmail, description, imageUrl});
+        } else {
+            meetups.addMeetup(newMeetup);
+        }
         dispatch('save')
     }
 </script>
