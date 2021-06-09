@@ -55,6 +55,7 @@
 
 <style>
     main {
-        margin-top: 5rem;
+        width: 65%;
+        margin: 5rem auto;
     }
 </style>

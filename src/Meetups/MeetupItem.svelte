@@ -58,7 +58,7 @@
 
   .image {
     width: 100%;
-    height: 14rem;
+    height: 10rem;
   }
 
   .image img {
