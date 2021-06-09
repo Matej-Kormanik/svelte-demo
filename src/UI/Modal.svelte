@@ -2,7 +2,7 @@
     import Button from "./Button.svelte";
     import {createEventDispatcher} from "svelte";
     const dispatch = createEventDispatcher();
-
+    import {fade, fly} from 'svelte/transition';
     export let title;
 
     function close() {
@@ -10,16 +10,16 @@
     }
 </script>
 
-<div class="modal-backdrop" on:click={close}></div>
+<div class="modal-backdrop" on:click={close} transition:fade></div>
 
-<div class="modal">
+<div class="modal" transition:fly={{y: 300}}>
     <h1>{title}</h1>
     <div class="content">
         <slot />
     </div>
     <footer>
         <slot name="footer">
-<!--            <Button on:click={close}>close</Button>-->
+            <Button on:click={close}>close</Button>
         </slot>
     </footer>
 </div>

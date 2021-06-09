@@ -3,6 +3,7 @@
   import Badge from "../UI/Badge.svelte";
   import {createEventDispatcher} from 'svelte';
   import {meetups} from "./meetup-store";
+
   const dispatch = createEventDispatcher();
 
   export let title, subtitle, imageUrl, description, address, contactEmail, id, isFavorite;
