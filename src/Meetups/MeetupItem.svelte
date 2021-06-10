@@ -2,7 +2,6 @@
   import Button from "../UI/Button.svelte";
   import Badge from "../UI/Badge.svelte";
   import {createEventDispatcher} from 'svelte';
-  import {meetups} from "./meetup-store";
   import {updateMeetup} from "../helpers/http";
 
   const dispatch = createEventDispatcher();
