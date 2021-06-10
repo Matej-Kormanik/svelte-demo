@@ -1,6 +1,5 @@
-const URL = 'https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebasedatabase.app/meetups.json';
-
 import {meetups} from "../Meetups/meetup-store";
+const URL = 'https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebasedatabase.app/meetups.json';
 
 export const getAllMeetups = () =>
     fetch(URL)
@@ -14,6 +13,7 @@ export const getAllMeetups = () =>
                 })
             }
             meetups.set(transformedMeetups);
+            return false;
         })
 
 export const saveNewMeetup = (meetup) =>
