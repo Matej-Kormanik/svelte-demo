@@ -5,6 +5,7 @@
     import Modal from "../UI/Modal.svelte";
     import {isEmailValid, isEmpty} from "../helpers/validation";
     import {meetups} from "./meetup-store";
+    import {saveMeetup, saveNewMeetup} from "../helpers/http";
     const dispatch = createEventDispatcher();
 
     export let editedMeetupId = null;
@@ -35,11 +36,12 @@
     $: formIsValid = titleValid && subtitleValid && addressValid && contactEmailValid && descriptionValid && imageUrlValid;
 
     function submitForm() {
-        const newMeetup = {id: Math.random().toString(), title, subtitle, description, imageUrl, contactEmail, address};
         if (editedMeetupId) {
-            meetups.updateMeetup(editedMeetupId, {title, subtitle, address, contactEmail, description, imageUrl});
+            const updatedMeetup = {title, subtitle, address, contactEmail, description, imageUrl};
+            meetups.updateMeetup(editedMeetupId, updatedMeetup);
         } else {
-            meetups.addMeetup(newMeetup);
+            const newMeetup = {title, subtitle, description, imageUrl, contactEmail, address, isFavorite: false};
+            saveNewMeetup(newMeetup);
         }
         dispatch('save')
     }
