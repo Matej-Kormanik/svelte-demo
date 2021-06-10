@@ -3,13 +3,14 @@
   import Badge from "../UI/Badge.svelte";
   import {createEventDispatcher} from 'svelte';
   import {meetups} from "./meetup-store";
+  import {updateMeetup} from "../helpers/http";
 
   const dispatch = createEventDispatcher();
 
   export let title, subtitle, imageUrl, description, address, contactEmail, id, isFavorite;
 
   function toggleFavorite() {
-    meetups.toggleFavorite(id);
+    updateMeetup(id, {isFavorite: !isFavorite}, true);
   }
 </script>
 

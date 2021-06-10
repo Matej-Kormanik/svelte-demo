@@ -5,7 +5,7 @@
     import Modal from "../UI/Modal.svelte";
     import {isEmailValid, isEmpty} from "../helpers/validation";
     import {meetups} from "./meetup-store";
-    import {saveNewMeetup, updateMeetup} from "../helpers/http";
+    import {deleteMeetup, saveNewMeetup, updateMeetup} from "../helpers/http";
     const dispatch = createEventDispatcher();
 
     export let editedMeetupId = null;
@@ -47,7 +47,7 @@
     }
 
     function removeMeetup() {
-        meetups.deleteMeetup(editedMeetupId);
+        deleteMeetup(editedMeetupId)
         dispatch('save')
     }
 </script>

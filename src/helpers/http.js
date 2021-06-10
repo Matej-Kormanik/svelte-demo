@@ -13,7 +13,7 @@ export const getAllMeetups = () =>
                     ...meetupList[key]
                 })
             }
-            meetups.set(transformedMeetups);
+            meetups.set(transformedMeetups.reverse());
             return false;
         })
 
@@ -34,7 +34,7 @@ export const saveNewMeetup = (meetup) =>
     });
 
 
-export const updateMeetup = (id, updatedMeetup) =>
+export const updateMeetup = (id, updatedMeetup, toggleFav = false) =>
     fetch(`https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebasedatabase.app/meetups/${id}.json`, {
         method: 'PATCH',
         body: JSON.stringify(updatedMeetup),
@@ -43,7 +43,24 @@ export const updateMeetup = (id, updatedMeetup) =>
         if (!res.ok) {
             throw new Error('Meetup has not been updated');
         }
-        meetups.updateMeetup(id, updatedMeetup);
+        if (toggleFav) {
+            meetups.toggleFavorite(id);
+        } else {
+            meetups.updateMeetup(id, updatedMeetup);
+        }
+    }).catch(err => {
+        console.log(err)
+    });
+
+
+export const deleteMeetup = id =>
+    fetch(`https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebasedatabase.app/meetups/${id}.json`, {
+        method: 'DELETE',
+    }).then(res => {
+        if (!res.ok) {
+            throw new Error('Meetup has not been updated');
+        }
+        meetups.deleteMeetup(id);
     }).catch(err => {
         console.log(err)
     });
