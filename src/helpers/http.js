@@ -15,7 +15,9 @@ export const getAllMeetups = () =>
             }
             meetups.set(transformedMeetups.reverse());
             return false;
-        })
+        }).catch(err => {
+            throw new Error('Failed to fetch meetups')
+    })
 
 export const saveNewMeetup = (meetup) =>
     fetch(URL, {

@@ -7,16 +7,14 @@
     import {onMount} from "svelte";
     import {getAllMeetups} from "./helpers/http";
     import LoadingSpinner from "./UI/LoadingSpinner.svelte";
+    import Error from "./UI/Error.svelte";
 
     let editMode = false;
     let page = 'overview';
     let pageData = {};
     let edittingId;
     let isLoading = true;
-
-    function toggleFavorite(event) {
-        meetups.toggleFavorite(event.detail);
-    }
+    let error;
 
     function cancelEdit() {
         editMode = false;
@@ -47,7 +45,8 @@
                 isLoading = res
             }, 1200)
         }).catch(err => {
-            isLoading = false
+            isLoading = false;
+            error = err;
         })
     })
 </script>
@@ -77,6 +76,10 @@
         <MeetupDetail id={pageData.id} on:close={closeDetails}/>
     {/if}
 </main>
+
+{#if error}
+    <Error message={error.message} on:cancel={() => {error = null}}/>
+{/if}
 
 
 <style>
