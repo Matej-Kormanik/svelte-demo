@@ -2,6 +2,20 @@ const URL = 'https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebas
 
 import {meetups} from "../Meetups/meetup-store";
 
+export const getAllMeetups = () =>
+    fetch(URL)
+        .then(res => res.json())
+        .then(meetupList => {
+            const transformedMeetups = [];
+            for(let key in meetupList) {
+                transformedMeetups.push({
+                    id: key,
+                    ...meetupList[key]
+                })
+            }
+            meetups.set(transformedMeetups);
+        })
+
 export const saveNewMeetup = (meetup) =>
     fetch(URL, {
         method: 'POST',
@@ -13,7 +27,6 @@ export const saveNewMeetup = (meetup) =>
         }
         return res.json();
     }).then(savedMeetup => {
-        console.log(savedMeetup);
         meetups.addMeetup({id: savedMeetup.name, ...meetup})
     }).catch(err => {
         console.log(err)

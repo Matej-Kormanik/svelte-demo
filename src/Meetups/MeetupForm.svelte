@@ -5,7 +5,7 @@
     import Modal from "../UI/Modal.svelte";
     import {isEmailValid, isEmpty} from "../helpers/validation";
     import {meetups} from "./meetup-store";
-    import {saveMeetup, saveNewMeetup} from "../helpers/http";
+    import {saveNewMeetup} from "../helpers/http";
     const dispatch = createEventDispatcher();
 
     export let editedMeetupId = null;

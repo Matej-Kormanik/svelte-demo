@@ -5,6 +5,8 @@
   import MeetupForm from "./Meetups/MeetupForm.svelte";
   import {meetups} from "./Meetups/meetup-store";
   import MeetupDetail from "./Meetups/MeetupDetail.svelte";
+  import {onMount} from "svelte";
+  import {getAllMeetups} from "./helpers/http";
 
   let editMode = false;
   let page = 'overview';
@@ -36,6 +38,10 @@
       edittingId = detail;
       editMode = true;
   }
+
+  onMount(() => {
+      getAllMeetups();
+  })
 </script>
 
 
