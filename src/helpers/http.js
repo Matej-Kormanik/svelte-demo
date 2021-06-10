@@ -1,4 +1,5 @@
 import {meetups} from "../Meetups/meetup-store";
+
 const URL = 'https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebasedatabase.app/meetups.json';
 
 export const getAllMeetups = () =>
@@ -33,19 +34,16 @@ export const saveNewMeetup = (meetup) =>
     });
 
 
-export const updateMeetup = (id, meetup) =>
-    fetch(URL, {
-        method: 'PUT',
-        body: JSON.stringify(meetup),
+export const updateMeetup = (id, updatedMeetup) =>
+    fetch(`https://svelte-udemy-course-46913-default-rtdb.europe-west1.firebasedatabase.app/meetups/${id}.json`, {
+        method: 'PATCH',
+        body: JSON.stringify(updatedMeetup),
         headers: {'Content-Type': 'application/json'}
     }).then(res => {
         if (!res.ok) {
-            throw new Error('Meetup has not been saved');
+            throw new Error('Meetup has not been updated');
         }
-        return res.json();
-    }).then(savedMeetup => {
-        console.log(savedMeetup);
-        meetups.addMeetup({id: savedMeetup.name, ...meetup})
+        meetups.updateMeetup(id, updatedMeetup);
     }).catch(err => {
         console.log(err)
     });
